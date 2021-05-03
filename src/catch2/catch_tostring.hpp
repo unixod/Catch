@@ -188,19 +188,19 @@ namespace Catch {
 
     // TBD: Should we use `strnlen` to ensure that we don't go out of the buffer,
     //      while keeping string semantics?
-    template<int SZ>
+    template<std::size_t SZ>
     struct StringMaker<char[SZ]> {
         static std::string convert(char const* str) {
             return ::Catch::Detail::stringify(std::string{ str });
         }
     };
-    template<int SZ>
+    template<std::size_t SZ>
     struct StringMaker<signed char[SZ]> {
         static std::string convert(signed char const* str) {
             return ::Catch::Detail::stringify(std::string{ reinterpret_cast<char const *>(str) });
         }
     };
-    template<int SZ>
+    template<std::size_t SZ>
     struct StringMaker<unsigned char[SZ]> {
         static std::string convert(unsigned char const* str) {
             return ::Catch::Detail::stringify(std::string{ reinterpret_cast<char const *>(str) });
@@ -506,7 +506,7 @@ namespace Catch {
         }
     };
 
-    template <typename T, int SZ>
+    template <typename T, std::size_t SZ>
     struct StringMaker<T[SZ]> {
         static std::string convert(T const(&arr)[SZ]) {
             return rangeToString(arr);

@@ -332,9 +332,10 @@ public:
         }
         tp.m_currentColumn++;
 
-        auto colInfo = tp.m_columnInfos[tp.m_currentColumn];
+        assert(tp.m_currentColumn >= 0);
+        auto colInfo = tp.m_columnInfos[static_cast<std::size_t>(tp.m_currentColumn)];
         auto padding = (strSize + 1 < static_cast<std::size_t>(colInfo.width))
-            ? std::string(colInfo.width - (strSize + 1), ' ')
+            ? std::string(static_cast<std::size_t>(colInfo.width) - (strSize + 1), ' ')
             : std::string();
         if (colInfo.justification == Justification::Left)
             tp.m_os << colStr << padding << ' ';
